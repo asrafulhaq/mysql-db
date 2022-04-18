@@ -64,3 +64,13 @@ input[type="submit"]  {
 	border:10px solid #FFF;
 }
 
+.profile {
+	text-align: center;
+}
+
+.profile img {
+	width: 200px;
+	height: 200px;
+	border-radius: 50%;
+}
+

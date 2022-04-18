@@ -2,6 +2,14 @@
 
 	include_once "./autoload.php";
 
+
+	// student data delete
+	if( isset($_GET['delete_id']) ){
+		$id = $_GET['delete_id'];
+		connect() -> query("DELETE FROM students WHERE id='$id'");
+		header("location:./");
+	}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,13 +68,12 @@
 						<tr>
 							<th>#</th>
 							<th>Name</th>
-							<th>Email</th>
-							<th>Cell</th>
-							<th>Age</th>
+							<th>Roll</th>
+							<th>Reg</th>
 							<th>Gender</th>
 							<th>Location</th>
 							<th>Education</th>
-							<th>Payment</th>
+							<th>Result</th>
 							<th>Photo</th>
 							<th width="200">Action</th>
 						</tr>
@@ -102,18 +109,25 @@
 						<tr>
 							<td><?php echo $i; $i++; ?></td>
 							<td><?php echo $student -> name; ?></td>
-							<td><?php echo $student -> email; ?></td>
-							<td><?php echo $student -> cell; ?></td>
-							<td><?php echo $student -> age; ?></td>
+							<td><?php echo $student -> roll; ?></td>
+							<td><?php echo $student -> reg; ?></td>
 							<td><?php echo $student -> gender; ?></td>
 							<td><?php echo $student -> location; ?></td>
 							<td><?php echo $student -> education; ?></td>
-							<td><?php echo $student -> payment; ?></td>
+							<td>
+								<?php if( $student -> bn == 0 || $student -> en == 0 || $student -> math == 0 ) : ?>
+									<a class="btn btn-warning btn-sm" href="./marks.php?student_id=<?php echo $student -> id; ?>">Set Marks</a>
+								<?php else : ?>
+									<a class="btn btn-primary btn-sm" href="./marks.php?student_id=<?php echo $student -> id; ?>">Edit Marks</a>
+								<?php endif; ?>
+
+
+							</td>
 							<td><img src="photos/<?php echo $student -> photo; ?>" alt=""></td>
 							<td>
-								<a class="btn btn-sm btn-info" data-toggle="modal" href="#single_student">View</a>
+								<a class="btn btn-sm btn-info" href="profile.php?student_id=<?php echo $student -> id; ?>">View</a>
 								<a class="btn btn-sm btn-warning" href="#">Edit</a>
-								<a class="btn btn-sm btn-danger" href="#">Delete</a>
+								<a class="btn btn-sm btn-danger" href="?delete_id=<?php echo $student -> id; ?>">Delete</a>
 							</td>
 						</tr>
 						<?php endwhile; ?>
@@ -126,9 +140,7 @@
 							<td></td>
 							<td></td>
 							<td></td>
-							<td>
-								Total : <?php echo $minmaxdata -> total; ?>
-							</td>
+							
 						</tr>
 						
 
