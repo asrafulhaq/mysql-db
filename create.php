@@ -29,6 +29,8 @@
 			$gender = $_POST['gender'] ?? '';
 			$education = $_POST['education'];
 			$location = $_POST['location'];
+			$board = $_POST['board'];
+			$year = $_POST['year'];
  
 
 			// form validation 
@@ -44,7 +46,7 @@
 				move_uploaded_file($file_tmp_name, 'photos/' . $file_name);
 
 
-				connect() -> query("INSERT INTO students (name, email, cell, gender, education, location, photo) VALUES ('$name','$email','$cell', '$gender','$education','$location','$file_name')");
+				connect() -> query("INSERT INTO students (name, email, cell, gender, education, location, photo, board, year) VALUES ('$name','$email','$cell', '$gender','$education','$location','$file_name', '$board','$year')"); 
 
 				$msg = validate('Data Stable', 'success');
 			}
@@ -87,8 +89,12 @@
 						<input name="gender" class="" type="radio" value="Female" id="Female"> <label for="Female">Female</label>
 					</div>
 					<div class="form-group">
+						<label for="">Year</label>
+						<input name="year" class="form-control" type="text">
+					</div>
+					<div class="form-group">
 						<label for="">Education</label>
-						<select class="form-control" name="education" id="">
+						<select class="form-control" name="board" id="">
 							<option value="">-select-</option>
 							<option value="PSC">PSC</option>
 							<option value="JSC">JSC</option>
@@ -96,6 +102,23 @@
 							<option value="HSC">HSC</option>
 							<option value="BSc">BSc</option>
 						</select>
+					</div>
+					<div class="form-group">
+						<label for="">Board</label>
+						<select class="form-control" name="board">
+		                          <option value=""selected>Select One</option>
+								  <option value="barisal">Barisal</option>
+								  <option value="chittagong">Chittagong</option>
+								  <option value="comilla">Comilla</option>
+		                          <option value="dhaka">Dhaka</option>
+								  <option value="dinajpur">Dinajpur</option>
+								  <option value="jessore">Jessore</option>
+		                          <option value="rajshahi">Rajshahi</option>
+		                          <option value="sylhet">Sylhet</option>
+		                          <option value="madrasah">Madrasah</option>
+								  <option value="tec">Technical</option>
+								  <option value="dibs">DIBS(Dhaka)</option>
+                          	</select>
 					</div>
 					<div class="form-group">
 						<label for="">Location</label>

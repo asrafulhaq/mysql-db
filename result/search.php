@@ -1,3 +1,10 @@
+<?php 
+
+	include_once "./autoload.php";
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +15,46 @@
 	<link rel="shortcut icon" type="image/x-icon" href="assets/images/bd_logo.png">
 </head>
 <body>
+
+
+<?php 
+	
+	if( isset($_POST['result']) ){
+		//get values 
+		$exam = $_POST['exam'];
+		$year = $_POST['year'];
+		$board = $_POST['board'];
+		$roll = $_POST['roll'];
+		$reg = $_POST['reg'];
+
+
+		if( empty($exam) || empty($year) || empty($board) || empty($roll) || empty($reg) ){
+			header("location:./");
+		}else{
+
+			$result = connect() -> query("SELECT * FROM students WHERE education='$exam' AND year='$year' AND roll='$roll' AND reg='$reg' AND board='$board' LIMIT 1");
+
+			if( $search_data = $result -> fetch_object() ){
+
+				$search_data = $result -> fetch_object();
+			}else {
+				header("location:./?error=No result found");
+			}
+
+			
+
+
+
+		}
+
+
+
+	}else {
+		header("location:./");
+	}
+
+
+?>
 	
 
 	<div class="wraper">
@@ -26,33 +73,31 @@
 
 				<div class="student-info">
 					<div class="student-photo">
-						<img src="assets/images/Piet-Olivier-photo-passport-size.jpeg" alt="">
+						<img src="../photos/<?php echo $search_data -> photo; ?>" alt="">
 					</div>
 					<div class="student-details">
 						<table>
 							<tr>
 								<td>Name</td>
-								<td>Asraful Haque</td>
+								<td><?php echo $search_data -> name; ?></td>
 							</tr>
 							<tr>
 								<td>Roll</td>
-								<td>505050</td>
+								<td><?php echo $search_data -> roll; ?></td>
 							</tr>
 							<tr>
 								<td>Reg.</td>
-								<td>101010</td>
+								<td><?php echo $search_data -> reg; ?></td>
 							</tr>
 							<tr>
 								<td>Board</td>
-								<td>Dhaka</td>
-							</tr>
-							<tr>
-								<td>Institute</td>
-								<td>CT</td>
+								<td><?php echo $search_data -> board; ?></td>
 							</tr>
 							<tr>
 								<td>Result</td>
-								<td><span style="color:green;font-weight:bold;">Passed<span></td>
+								<td>
+								<?php echo result($search_data -> bn, $search_data -> en, $search_data -> math, $search_data -> sci, $search_data -> ssci, $search_data -> reli); ?>
+								</td>
 							</tr>
 						</table>
 					</div>
@@ -70,40 +115,42 @@
 						</tr>
 						<tr>
 							<td>Bangla</td>
-							<td>89</td>
-							<td>5</td>
-							<td>4.8</td>
-							<td rowspan="6">4.8</td>
+							<td><?php echo $search_data -> bn; ?></td>
+							<td><?php echo grade($search_data -> bn); ?></td>
+							<td><?php echo gpa($search_data -> bn); ?></td>
+							<td rowspan="6"> 
+								<?php echo cgpa($search_data -> bn, $search_data -> en, $search_data -> math, $search_data -> sci, $search_data -> ssci, $search_data -> reli); ?>
+							</td>
 						</tr>
 						<tr>
-							<td>Bangla</td>
-							<td>89</td>
-							<td>5</td>
-							<td>4.8</td>
+							<td>English</td>
+							<td><?php echo $search_data -> en; ?></td>
+							<td><?php echo grade($search_data -> en); ?></td>
+							<td><?php echo gpa($search_data -> en); ?></td>
 						</tr>
 						<tr>
-							<td>Bangla</td>
-							<td>89</td>
-							<td>5</td>
-							<td>4.8</td>
+							<td>Math</td>
+							<td><?php echo $search_data -> math; ?></td>
+							<td><?php echo grade($search_data -> math); ?></td>
+							<td><?php echo gpa($search_data -> math); ?></td>
 						</tr>
 						<tr>
-							<td>Bangla</td>
-							<td>89</td>
-							<td>5</td>
-							<td>4.8</td>
+							<td>Science</td>
+							<td><?php echo $search_data -> sci; ?></td>
+							<td><?php echo grade($search_data -> sci); ?></td>
+							<td><?php echo gpa($search_data -> sci); ?></td>
 						</tr>
 						<tr>
-							<td>Bangla</td>
-							<td>89</td>
-							<td>5</td>
-							<td>4.8</td>
+							<td>S Science</td>
+							<td><?php echo $search_data -> ssci; ?></td>
+							<td><?php echo grade($search_data -> ssci); ?></td>
+							<td><?php echo gpa($search_data -> ssci); ?></td>
 						</tr>
 						<tr>
-							<td>Bangla</td>
-							<td>89</td>
-							<td>5</td>
-							<td>4.8</td>
+							<td>Religion</td>
+							<td><?php echo $search_data -> reli; ?></td>
+							<td><?php echo grade($search_data -> reli); ?></td>
+							<td><?php echo gpa($search_data -> reli); ?></td>
 						</tr>
 					</table>
 				</div>

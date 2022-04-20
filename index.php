@@ -118,7 +118,7 @@
 								<?php if( $student -> bn == 0 || $student -> en == 0 || $student -> math == 0 ) : ?>
 									<a class="btn btn-warning btn-sm" href="./marks.php?student_id=<?php echo $student -> id; ?>">Set Marks</a>
 								<?php else : ?>
-									<a class="btn btn-primary btn-sm" href="./marks.php?student_id=<?php echo $student -> id; ?>">Edit Marks</a>
+									<a class="btn btn-success btn-sm" href="./result/">Check Result</a>
 								<?php endif; ?>
 
 

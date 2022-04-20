@@ -1,3 +1,10 @@
+<?php 
+
+	include_once "./autoload.php"; 
+	$msg = $_GET['error'] ?? '';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,9 +15,13 @@
 	<link rel="shortcut icon" type="image/x-icon" href="assets/images/bd_logo.png">
 </head>
 <body>
+
+
+
 	
 
 	<div class="wraper">
+		
 		<div class="w-top">
 			<div class="logo">
 				<img src="assets/images/bd_logo.png" alt="">
@@ -22,30 +33,31 @@
 			</div>
 		</div>
 		<div class="w-main">
+		<p><?php echo $msg ?? ''; ?></p>
 			<div class="search-result">
-				<form action="">
+				<form action="./search.php" method="POST">
 					<table>
 					<tr>
 						<td>Examination</td>
 						<td>
-							<select>
-	                            <option value="hsc">HSC/Alim/Equivalent</option>
-	                            <option value="jsc">JSC/JDC</option>
-	                            <option value="ssc">SSC/Dakhil</option>
-								<option value="ssc_voc">SSC(Vocational)</option>
-	                            <option value="hsc">HSC/Alim</option>
-								<option value="hsc_voc">HSC(Vocational)</option>
-								<option value="hsc_hbm">HSC(BM)</option>
-								<option value="hsc_dic">Diploma in Commerce</option>
-								<option value="hsc">Diploma in Business Studies</option>
+							<select name="exam">
+							<option value="">-select-</option>
+							<option value="PSC">PSC</option>
+							<option value="JSC">JSC</option>
+							<option value="SSC">SSC</option>
+							<option value="HSC">HSC</option>
+							<option value="BSc">BSc</option>
                           	</select>
 						</td>
 					</tr>
 					<tr>
 						<td>Year</td>
 						<td>
-							<select>
-                            <option value="0000" selected>Select One</option>
+							<select name="year">
+                            <option value="" selected>Select One</option>
+                            <option value="2022">2022</option>
+                            <option value="2021">2021</option>
+                            <option value="2020">2020</option>
                             <option value="2019">2019</option>
                             <option value="2018">2018</option>
                             <option value="2017">2017</option>
@@ -76,7 +88,7 @@
 					<tr>
 						<td>Board</td>
 						<td>
-						 	<select>
+						 	<select name="board">
 		                          <option value=""selected>Select One</option>
 								  <option value="barisal">Barisal</option>
 								  <option value="chittagong">Chittagong</option>
@@ -94,15 +106,15 @@
 					</tr>
 					<tr>
 						<td> Roll</td>
-						<td><input type="text"></td>
+						<td><input type="text" name="roll"></td>
 					</tr>
 					<tr>
 						<td> Reg: No</td>
-						<td><input type="text"></td>
+						<td><input type="text" name="reg"></td>
 					</tr>
 					<tr>
 						<td></td>
-						<td><input type="reset" value="reset"><input type="submit" value="submit"></td>
+						<td><input type="reset" value="reset"><input name="result" type="submit" value="submit"></td>
 					</tr>
 				</table>
 				</form>
